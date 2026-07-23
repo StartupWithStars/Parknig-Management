@@ -1,0 +1,116 @@
+<div class="dashboard-container">
+  
+  <header class="dash-header">
+    <div class="brand">
+      <div class="brand-title">
+        <h2>SmartPark Control Hub</h2>
+        <span class="sub-title">Real-time Parking Management Dashboard</span>
+      </div>
+    </div>
+    <div class="user-meta" *ngIf="currentUser">
+      <div class="user-avatar">{{ currentUser.name.charAt(0) }}</div>
+      <p>Welcome, <strong>{{ currentUser.name }}</strong></p>
+    </div>
+  </header>
+
+  <main class="dash-content">
+    
+    <div class="section-header">
+      <h3>Live Slot Metrics</h3>
+      <p>Click any card to inspect detailed parking slots grid</p>
+    </div>
+
+    <div class="metrics-grid">
+      
+      <!-- Total Slots Card -->
+      <div class="metric-card total" (click)="navigateToParking()">
+        <div class="progress-circle-wrapper">
+          <div class="circle-progress total-circle" style="--percent: 100%;">
+            <div class="circle-inner">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-label">Total Slots</span>
+          <h3 class="card-value">{{ totalSlotsCount }}</h3>
+          <span class="card-subtext">Capacity Limit</span>
+        </div>
+        <div class="card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+      <!-- Occupied Slots Card -->
+      <div class="metric-card occupied" (click)="navigateToParking()">
+        <div class="progress-circle-wrapper">
+          <div class="circle-progress occupied-circle" [style.--percent]="getOccupiedPercentage() + '%'">
+            <div class="circle-inner">
+              <i class="fa-solid fa-car-side"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-label">Occupied Slots</span>
+          <h3 class="card-value">{{ occupiedSlotsCount }}</h3>
+          <span class="card-subtext">{{ getOccupiedPercentage() | number:'1.0-0' }}% Space Full</span>
+        </div>
+        <div class="card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+      <!-- Available Slots Card -->
+      <div class="metric-card available" (click)="navigateToParking()">
+        <div class="progress-circle-wrapper">
+          <div class="circle-progress available-circle" [style.--percent]="getAvailablePercentage() + '%'">
+            <div class="circle-inner">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-label">Available Slots</span>
+          <h3 class="card-value">{{ availableSlotsCount }}</h3>
+          <span class="card-subtext">{{ getAvailablePercentage() | number:'1.0-0' }}% Ready to Park</span>
+        </div>
+        <div class="card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+    </div>
+
+    <div class="dashboard-bottom-grid">
+      
+      <!-- System Status Overview Box -->
+      <div class="info-widget system-status">
+        <div class="widget-header">
+          <i class="fa-solid fa-chart-pie"></i>
+          <h4>Parking Occupancy Ratio</h4>
+        </div>
+        <div class="status-bar-container">
+          <div class="status-progress-bar">
+            <div class="fill-occupied" [style.width]="getOccupiedPercentage() + '%'"></div>
+            <div class="fill-available" [style.width]="getAvailablePercentage() + '%'"></div>
+          </div>
+          <div class="bar-legend">
+            <span><i class="legend-dot occupied"></i> Occupied ({{ occupiedSlotsCount }})</span>
+            <span><i class="legend-dot available"></i> Available ({{ availableSlotsCount }})</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Navigation Card -->
+      <div class="info-widget quick-action" (click)="navigateToParking()">
+        <div class="widget-content">
+          <div class="widget-icon-bg">
+            <i class="fa-solid fa-circle-parking"></i>
+          </div>
+          <div class="widget-text">
+            <h4>Manage Parking Grid</h4>
+            <p>View live slots, reserve spaces, and process check-ins instantly.</p>
+          </div>
+          <button class="btn-action">Open Grid <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

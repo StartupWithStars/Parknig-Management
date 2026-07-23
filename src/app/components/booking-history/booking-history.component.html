@@ -1,0 +1,174 @@
+<div class="history-page-container">
+
+    <div class="section-header">
+        Booking History
+    </div>
+
+    <!-- 🌟 Tab Filters Navigation Row Section -->
+    <div class="filter-tabs-container">
+        <button type="button" class="tab-btn" [ngClass]="{ 'active-tab': activeTab === 'current' }"
+            (click)="onTabChange('current')">
+            Current Bookings
+        </button>
+        <button type="button" class="tab-btn" [ngClass]="{ 'active-tab': activeTab === 'closed' }"
+            (click)="onTabChange('closed')">
+            Closed Bookings
+        </button>
+        <button type="button" class="tab-btn" [ngClass]="{ 'active-tab': activeTab === 'all' }"
+            (click)="onTabChange('all')">
+            All Bookings
+        </button>
+    </div>
+
+    <div class="table-toolbar">
+
+        <!-- Page Size Dropdown -->
+        <div class="page-size-selector">
+            <label for="pageSizeSelect">Show:</label>
+            <select id="pageSizeSelect" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                <option [ngValue]="5">5</option>
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="20">20</option>
+                <option [ngValue]="50">50</option>
+            </select>
+        </div>
+
+        <!-- Search Input Box -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" [(ngModel)]="searchQuery" (input)="onSearchChange()" placeholder="Search booking..." />
+            <button *ngIf="searchQuery" class="clear-search-btn" (click)="clearSearch()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Table View Display Module Template Layout Layer Frame -->
+    <div class="table-responsive-wrapper">
+        <table class="custom-history-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Slot Code</th>
+                    <th>Vehicle Number</th>
+                    <th>Owner Name</th>
+                    <th>Booking Time</th>
+                    <th>Closed Time</th>
+                    <th>Current Status</th>
+                    <th>Action Triggers</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 🌟 Loops through current active page dynamic subsets array slices -->
+                <tr *ngFor="let item of paginatedBookingList; let i = index">
+                    <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                    <td><strong>{{ item.slotNumber }}</strong></td>
+                    <td>{{ item.vehicleNo }}</td>
+                    <td>{{ item.ownerName }}</td>
+                    <td>{{ item.bookedAt | date:'medium' }}</td>
+                    <td>{{ item.closedAt ? (item.closedAt | date:'MMM d, y, h:mm:ss a') : '-' }}</td>
+
+                    <td>
+                        <span class="status-pill" [ngClass]="item.status === 'closed' ? 'is-closed' : 'is-active'">
+                            {{ item.status === 'closed' ? 'Closed' : 'Active Pass' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button *ngIf="item.status !== 'closed'" class="btn-action-clear"
+                            (click)="openClearPopup(item)">
+                            Clear Slot
+                        </button>
+                        <span *ngIf="item.status === 'closed'" class="text-muted-check">Settled ✓</span>
+                    </td>
+                </tr>
+
+                <!-- Empty fallbacks baseline indicators row mapping layout criteria -->
+                <tr *ngIf="paginatedBookingList.length === 0">
+                    <td colspan="6" class="text-center-empty">No transaction entries found in this category.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🌟 Dynamic Client-side Pagination Interface Control Panel Component Footer Row -->
+    <div class="pagination-controls-row" *ngIf="filteredBookingList.length > 0">
+        <button type="button" class="pagi-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+            ◀ Previous
+        </button>
+
+        <span class="page-indicator-text">
+            Page <strong>{{ currentPage }}</strong> of <strong>{{ totalPages }}</strong>
+            (Total: {{ filteredBookingList.length }} items)
+        </span>
+
+        <button type="button" class="pagi-btn" [disabled]="currentPage === totalPages"
+            (click)="goToPage(currentPage + 1)">
+            Next ▶
+        </button>
+    </div>
+
+    <!-- 🎫 Action Modal Popup Dialog Window Frame Module Layer Interface Integration Configuration -->
+    <div class="clear-popup-backdrop" *ngIf="isClearPopupOpen">
+        <div class="clear-modal-window">
+            <div class="modal-title-header">
+                <h3>Finalize & Release Slot: {{ selectedBooking?.slotNumber }}</h3>
+            </div>
+
+            <div class="modal-body-form-fields">
+                <!-- Disabled Fields Collection Grid Segment -->
+                <div class="disabled-info-grid">
+                    <div class="info-field-group">
+                        <label>Slot Registry ID</label>
+                        <input type="text" [value]="selectedBooking?.slotNumber" disabled
+                            class="disabled-input-element">
+                    </div>
+                    <div class="info-field-group">
+                        <label>Vehicle License Plate</label>
+                        <input type="text" [value]="selectedBooking?.vehicleNo" disabled class="disabled-input-element">
+                    </div>
+                    <div class="info-field-group">
+                        <label>Registered Owner</label>
+                        <input type="text" [value]="selectedBooking?.ownerName" disabled class="disabled-input-element">
+                    </div>
+                    <div class="info-field-group">
+                        <label>Checked-In</label>
+                        <input type="text" [value]="selectedBooking?.bookedAt | date:'medium'" disabled
+                            class="disabled-input-element">
+                    </div>
+                    <div class="info-field-group highlight-dark">
+                        <label>Closed At</label>
+                        <input type="text" [value]="clearData.closedAt" disabled
+                            class="disabled-input-element font-bold-dark">
+                    </div>
+                    <div class="info-field-group highlight-dark">
+                        <label>Total Space Duration (Hours Calculated)</label>
+                        <input type="text" [value]="clearData.durationHrs + ' hr(s)'" disabled
+                            class="disabled-input-element font-bold-dark">
+                    </div>
+                </div>
+
+                <!-- Dynamic Invoice Charge Rate Calculations Box Area Component Block -->
+                <hr class="divider-line">
+                <div class="billing-form-controls">
+                    <div class="control-input-field">
+                        <label for="ratePerHr">Rate Per Hour (₹ Editable Pricing Engine)</label>
+                        <input type="number" id="ratePerHr" [(ngModel)]="clearData.ratePerHr"
+                            (ngModelChange)="calculateFinalBillAmount()" min="0" class="editable-rate-input">
+                    </div>
+
+                    <div class="total-billing-display-invoice">
+                        <span>Total Gross Outstanding Amount:</span>
+                        <strong>₹{{ clearData.totalAmount }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-action-footer-panel">
+                <button type="button" class="btn-dismiss-modal" (click)="closePopup()">Abort & Keep Occupied</button>
+                <button type="button" class="btn-submit-clear-transaction" (click)="onConfirmClearSlot()">Confirm Settle
+                    & Clear Slot</button>
+            </div>
+        </div>
+    </div>
+</div>

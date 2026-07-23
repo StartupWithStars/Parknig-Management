@@ -1,0 +1,209 @@
+/* Core Application Structural Dimensions Layout Configuration Grid */
+.app-layout-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 🌟 Clean Brand Sidebar Structural Positioning Fixed Frame Panel Box */
+.sidebar-wrapper {
+  width: 260px;
+  background-color: #1e293b;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #334155;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-header {
+  padding: 24px;
+  border-bottom: 1px solid #334155;
+}
+
+.sidebar-brand-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #3b82f6;
+}
+
+.system-tag {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Core Functional Sidebar Options Collection Elements Alignment */
+.sidebar-navigation-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 16px;
+  flex-grow: 1;
+}
+
+.nav-menu-link {
+  display: block;
+  padding: 12px 16px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-menu-link:hover {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+/* 🌟 High-Contrast Focus Element Highlight State Tracker Styling Matrices Selector */
+.nav-menu-link.active-menu-item {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(59, 131, 246, 0.25);
+}
+
+/* 🌟 Modular Session Identity Footprint Card & Logout Controller Grid Layout Blocks */
+.sidebar-user-footer {
+  padding: 20px 16px;
+  background-color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid #1e293b;
+}
+
+.user-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 42px;
+  height: 42px;
+  background-color: #334155;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border: 2px solid #475569;
+}
+
+.user-meta-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-meta-details strong {
+  font-size: 14px;
+  color: #f1f5f9;
+  letter-spacing: 0.2px;
+}
+
+.user-meta-details span {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Clean Custom Flat Action Button Panel Interface Elements Trigger Class Styles */
+.btn-sidebar-logout {
+  width: 100%;
+  background-color: #273549;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  text-align: center;
+}
+
+.btn-sidebar-logout:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* Application Interface Canvas Core Display Layout Segments Setup */
+.main-content-canvas {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.top-navbar-strip {
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+
+.breadcrumb-tracker {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.live-status-indicator {
+  font-size: 12px;
+  font-weight: 600;
+  color: #10b981;
+  background-color: #d1fae5;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.content-scroll-viewport {
+  flex-grow: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.auth-layout-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f5f9;
+}
+
+.auth-content-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.popup{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+  left: 0px ;
+  top: 0px
+
+}

@@ -1,0 +1,213 @@
+.login-container {
+
+  .brand-container {
+    flex-direction: column;
+    background-color: #0e131b;
+    padding: 24px;
+    width: fit-content;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    width: 100%;
+  }
+
+
+  .brand-header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand-icon-wrapper {
+    background-color: #ef4444;
+    width: 72px;
+    height: 52px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);
+
+    i {
+      color: #ffffff;
+      font-size: 28px;
+    }
+  }
+
+  .brand-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ef4444;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 2px;
+    margin-top: 12px;
+    padding-left: 2px;
+  }
+
+
+  display: flex;
+  font-family: sans-serif;
+  overflow: hidden;
+
+  .form-section {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 50%;
+    height: 100vh;
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      h3 {
+        margin-bottom: 10px;
+        color: #ef4444;
+        font-size: 1.5rem;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+
+      label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        color: white;
+      }
+
+      input {
+        padding: 0.7rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        outline: none;
+
+        &:focus {
+          border-color: #3b82f6;
+        }
+      }
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.75rem;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+
+      &:disabled {
+        background: #f38383;
+        cursor: not-allowed;
+      }
+    }
+
+    .toggle-text {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: white;
+
+      span {
+        color: #ef4444;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.brand-logo-img {
+  width: 60px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+}
+
+.car-div {
+  width: 80%;
+  background-color: #ffe8e8;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  border-radius: 5px 330px 330px 5px;
+}
+
+.tex{
+  font-weight: bold;
+    padding: 20px;
+    font-size: 24px;
+    color: #6d5d5d;
+}
+
+.input-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .form-input {
+    width: 100%;
+    padding: 12px 42px 12px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+  }
+
+  .toggle-eye-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ef4444; 
+    }
+
+    i {
+      font-size: 16px;
+    }
+  }
+}

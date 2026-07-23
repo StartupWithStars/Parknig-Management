@@ -1,0 +1,125 @@
+<div class="slots-visualization-section">
+
+  <div class="section-header">
+    Parking Floor Layout
+  </div>
+
+  <div class="lanes-container">
+    <div *ngFor="let lane of laneGroups" class="lane-box">
+
+      <div class="lane-header">{{ lane.laneName }}</div>
+
+      <div class="slots-grid">
+        <div *ngFor="let slot of lane.slots" class="slot-box" (click)="onSlotClick(slot)" [ngClass]="{
+          'is-occupied': slot.status === 'occupied',
+          'is-reserved': slot.status === 'reserved',
+          'is-available': slot.status === 'available'
+        }">
+
+          <div class="slot-badge">{{ slot.slotNumber }}</div>
+
+          <div class="slot-content">
+            <span *ngIf="slot.status === 'occupied'" class="car-sprite">
+              <i class="fa-solid fa-car fa-xl" style="color: white;"></i>
+            </span>
+            <span *ngIf="slot.status === 'available'" class="empty-sprite">
+              <i class="fa-solid fa-check-to-slot fa-xl" style="color: white;"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="popup-overlay" *ngIf="bookingPopup">
+  <div class="popup-card">
+    <div class="popup-header">
+      <h3>Book Parking Slot: <span class="highlight">{{ selectedSlot?.slotNumber }}</span></h3>
+      <button class="close-btn" (click)="closePopup()">✕</button>
+    </div>
+
+    <div class="popup-body">
+      <div class="input-group">
+        <label>Vehicle Number</label>
+        <input type="text" [(ngModel)]="bookingData.vehicleNo" placeholder="e.g., TN 01 AB 1234" />
+      </div>
+
+      <div class="input-group">
+        <label>Owner Name</label>
+        <input type="text" [(ngModel)]="bookingData.ownerName" placeholder="Enter owner name" />
+      </div>
+
+      <div class="popup-footer">
+        <button class="btn-cancel" (click)="closePopup()">Cancel</button>
+        <button class="btn-submit" [disabled]="!bookingData.vehicleNo || !bookingData.ownerName "
+          (click)="onGenerateToken('print')">Print Token</button>
+        <button class="btn-submit" [disabled]="!bookingData.vehicleNo || !bookingData.ownerName "
+          (click)="onGenerateToken('download')">Download Token</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="clear-popup-backdrop" *ngIf="isClearPopupOpen">
+  <div class="clear-modal-window">
+    <div class="modal-title-header">
+      <h3>Finalize & Release Slot: {{ selectedBooking?.slotNumber }}</h3>
+    </div>
+
+    <div class="modal-body-form-fields">
+      <div class="disabled-info-grid">
+        <div class="info-field-group">
+          <label>Slot Registry ID</label>
+          <input type="text" [value]="selectedBooking?.slotNumber" disabled class="disabled-input-element">
+        </div>
+        <div class="info-field-group">
+          <label>Vehicle License Plate</label>
+          <input type="text" [value]="selectedBooking?.vehicleNo" disabled class="disabled-input-element">
+        </div>
+        <div class="info-field-group">
+          <label>Registered Owner</label>
+          <input type="text" [value]="selectedBooking?.ownerName" disabled class="disabled-input-element">
+        </div>
+        <div class="info-field-group">
+          <label>Checked-In</label>
+          <input type="text" [value]="selectedBooking?.bookedAt | date:'medium'" disabled
+            class="disabled-input-element">
+        </div>
+        <div class="info-field-group highlight-dark">
+          <label>Closed At</label>
+          <input type="text" [value]="clearData.closedAt" disabled class="disabled-input-element font-bold-dark">
+        </div>
+        <div class="info-field-group highlight-dark">
+          <label>Total Space Duration (Hours Calculated)</label>
+          <input type="text" [value]="clearData.durationHrs + ' hr(s)'" disabled
+            class="disabled-input-element font-bold-dark">
+        </div>
+      </div>
+
+      <hr class="divider-line">
+      <div class="billing-form-controls">
+        <div class="control-input-field">
+          <label for="ratePerHr">Rate Per Hour (₹ Editable Pricing Engine)</label>
+          <input type="number" id="ratePerHr" [(ngModel)]="clearData.ratePerHr"
+            (ngModelChange)="calculateFinalBillAmount()" min="0" class="editable-rate-input">
+        </div>
+
+        <div class="total-billing-display-invoice">
+          <span>Total Gross Outstanding Amount:</span>
+          <strong>₹{{ clearData.totalAmount }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-action-footer-panel">
+      <button type="button" class="btn-dismiss-modal" (click)="clearPopup()">Abort & Keep Occupied</button>
+      <button type="button" class="btn-submit-clear-transaction" (click)="onConfirmClearSlot()">Confirm Settle
+        & Clear Slot</button>
+    </div>
+  </div>
+</div>
