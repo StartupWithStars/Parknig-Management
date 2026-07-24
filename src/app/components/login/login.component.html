@@ -1,100 +1,100 @@
 <div class="login-container">
-
-  <div class="brand-container">
+  <!-- Left Hero Banner with Background Image -->
+  <div class="hero-section">
+    <!-- Top Brand Header -->
     <div class="brand-header-row">
       <div class="brand-icon-wrapper">
-
-        <img src="assets/park-icon.jpeg" alt="" class="brand-logo-img">
-
+        <img src="assets/park-icon.jpeg" alt="SmartPark Logo" class="brand-logo-img">
       </div>
-      <h1 class="brand-title">SmartPark</h1>
+      <div class="brand-text-group">
+        <h1 class="brand-title">SmartPark</h1>
+        <div class="brand-subtitle">MANAGEMENT SYSTEM</div>
+      </div>
     </div>
 
-    <div class="brand-subtitle">MANAGEMENT SYSTEM</div>
+    <!-- Text overlay positioned on left side with blur effect only -->
+    <div class="hero-content-left">
+      <h2>Autonomous &<br>Smart Parking System</h2>
+      <p class="hero-desc">
+        Find, reserve, and manage parking spaces with real-time slot availability. Enjoy secure, fast, and hassle-free parking.
+      </p>
+    </div>
+  </div>
 
-
-    <div class="main">
-      <div class="car-div">
-        <img src="assets/car-removebg-preview.png" alt="" width="320px">
-        <div class="tex">
-          Find, reserve, and manage parking spaces with ease.
-          Monitor real-time parking availability and reduce waiting time.
-          Enjoy secure, fast, and hassle-free parking management.
-          Start your journey with a smarter way to park.
-        </div>
-      </div>
-
-      <div class="form-section">
-        <!-- SIGN UP -->
-        <div class="form-wrapper" *ngIf="isSignUpMode">
+  <!-- Right Form Section -->
+  <div class="form-section">
+    <div class="form-card">
+      
+      <!-- SIGN UP -->
+      <div class="form-wrapper" *ngIf="isSignUpMode">
+        <div class="form-header">
           <h3>Create Account</h3>
-          <div class="input-group">
-            <label>Name</label>
-            <input type="text" [(ngModel)]="signUpData.name" placeholder="Your Name">
-          </div>
-          <div class="input-group">
-            <label>Mobile Number</label>
-            <input type="text" [(ngModel)]="signUpData.mobile" maxlength="10" (keypress)="validateMobileInput($event)"
-              placeholder="10 Digit Number">
-          </div>
+          <p>Get started with your parking management</p>
+        </div>
+
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" [(ngModel)]="signUpData.name" placeholder="Your Name">
+        </div>
+
+        <div class="input-group">
+          <label>Mobile Number</label>
+          <input type="text" [(ngModel)]="signUpData.mobile" maxlength="10" (keypress)="validateMobileInput($event)" placeholder="10 Digit Number">
+        </div>
+
+        <div class="input-row">
           <div class="input-group">
             <label>Number of Slots</label>
-            <input type="text" [(ngModel)]="signUpData.totalSlots" maxlength="3"
-              (keypress)="validateMobileInput($event)" placeholder="Total Slots (e.g. 50)">
+            <input type="text" [(ngModel)]="signUpData.totalSlots" maxlength="3" (keypress)="validateMobileInput($event)" placeholder="e.g. 50">
           </div>
           <div class="input-group">
             <label>Rate Per Hour (₹)</label>
-            <input type="text" [(ngModel)]="signUpData.ratePerHour" maxlength="4"
-              (keypress)="validateMobileInput($event)" placeholder="0">
+            <input type="text" [(ngModel)]="signUpData.ratePerHour" maxlength="4" (keypress)="validateMobileInput($event)" placeholder="0">
           </div>
-
-          <div class="input-field-group">
-            <label for="password">Password</label>
-
-            <div class="password-input-wrapper">
-              <input [type]="isPasswordVisible ? 'text' : 'password'" id="password" placeholder="Enter your password"
-                class="form-input" [(ngModel)]="signUpData.password" />
-
-              <button type="button" class="toggle-eye-btn" (click)="togglePasswordVisibility()"
-                [title]="isPasswordVisible ? 'Hide password' : 'Show password'">
-                <i class="fa-solid" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
-              </button>
-            </div>
-          </div>
-          <button class="btn-primary" [disabled]="!isSignUpValid()" (click)="onSignUp()">Sign Up</button>
-          <small *ngIf="registerError" style="color: red;">User already exists with this mobile number!</small>
-
-          <p class="toggle-text">Already have an account? <span (click)="isSignUpMode = false">Sign In</span></p>
         </div>
 
-        <!-- SIGN IN -->
-        <div class="form-wrapper" *ngIf="!isSignUpMode">
-          <h3>Sign In</h3>
-          <div class="input-group">
-            <label>Mobile Number</label>
-            <input type="text" [(ngModel)]="signInData.mobile" maxlength="10" (keypress)="validateMobileInput($event)"
-              placeholder="Registered Number">
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <input [type]="isPasswordVisible ? 'text' : 'password'" id="password" placeholder="Enter your password" class="form-input" [(ngModel)]="signUpData.password" />
+            <button type="button" class="toggle-eye-btn" (click)="togglePasswordVisibility()" [title]="isPasswordVisible ? 'Hide password' : 'Show password'">
+              <i class="fa-solid" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
           </div>
-          <div class="input-field-group">
-            <label for="password">Password</label>
-
-            <div class="password-input-wrapper">
-              <input [type]="isPasswordVisible ? 'text' : 'password'" id="password" placeholder="Enter your password"
-                class="form-input" [(ngModel)]="signInData.password" />
-
-              <button type="button" class="toggle-eye-btn" (click)="togglePasswordVisibility()"
-                [title]="isPasswordVisible ? 'Hide password' : 'Show password'">
-                <i class="fa-solid" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
-              </button>
-            </div>
-          </div>
-          <button class="btn-primary" [disabled]="!isSignInValid()" (click)="onSignIn()">Sign In</button>
-          <p class="toggle-text">New user? <span (click)="isSignUpMode = true">Sign Up</span></p>
         </div>
+
+        <button class="btn-primary" [disabled]="!isSignUpValid()" (click)="onSignUp()">Sign Up</button>
+        <small *ngIf="registerError" class="error-msg">User already exists with this mobile number!</small>
+
+        <p class="toggle-text">Already have an account? <span (click)="isSignUpMode = false">Sign In</span></p>
       </div>
+
+      <!-- SIGN IN -->
+      <div class="form-wrapper" *ngIf="!isSignUpMode">
+        <div class="form-header">
+          <h3>Welcome Back</h3>
+          <p>Sign in to access your dashboard</p>
+        </div>
+
+        <div class="input-group">
+          <label>Mobile Number</label>
+          <input type="text" [(ngModel)]="signInData.mobile" maxlength="10" (keypress)="validateMobileInput($event)" placeholder="Registered Number">
+        </div>
+
+        <div class="input-group">
+          <label for="signin-password">Password</label>
+          <div class="password-input-wrapper">
+            <input [type]="isPasswordVisible ? 'text' : 'password'" id="signin-password" placeholder="Enter your password" class="form-input" [(ngModel)]="signInData.password" />
+            <button type="button" class="toggle-eye-btn" (click)="togglePasswordVisibility()" [title]="isPasswordVisible ? 'Hide password' : 'Show password'">
+              <i class="fa-solid" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-primary" [disabled]="!isSignInValid()" (click)="onSignIn()">Sign In</button>
+        <p class="toggle-text">New user? <span (click)="isSignUpMode = true">Sign Up</span></p>
+      </div>
+
     </div>
-
   </div>
-
-
 </div>

@@ -154,7 +154,9 @@
                     <div class="control-input-field">
                         <label for="ratePerHr">Rate Per Hour (₹ Editable Pricing Engine)</label>
                         <input type="number" id="ratePerHr" [(ngModel)]="clearData.ratePerHr"
-                            (ngModelChange)="calculateFinalBillAmount()" min="0" class="editable-rate-input">
+                            (ngModelChange)="calculateFinalBillAmount()" min="1" class="editable-rate-input" (ngModelChange)="validateAmount()">
+                                        <br>
+            <small *ngIf="amountError != '' ">{{amountError}}</small>
                     </div>
 
                     <div class="total-billing-display-invoice">

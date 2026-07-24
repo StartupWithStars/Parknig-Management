@@ -37,6 +37,9 @@ export class BookingHistoryComponent implements OnInit {
     totalAmount: 0
   };
 
+  amountError: string = ''
+
+
   constructor(private toastService: ToastService) {
 
   }
@@ -123,6 +126,7 @@ export class BookingHistoryComponent implements OnInit {
 
   // Open Clear Popup
   openClearPopup(booking: Booking) {
+
     this.selectedBooking = booking;
     this.isClearPopupOpen = true;
 
@@ -155,9 +159,15 @@ export class BookingHistoryComponent implements OnInit {
   closePopup() {
     this.isClearPopupOpen = false;
     this.selectedBooking = null;
+    this.amountError = '';
   }
 
   onConfirmClearSlot() {
+
+    if (this.clearData.ratePerHr <= 0) {
+      this.amountError = 'Enter valid amount';
+      return
+    }
     if (!this.selectedBooking) return;
 
     const activeUserStr = localStorage.getItem('active_parking_user');
@@ -200,4 +210,11 @@ export class BookingHistoryComponent implements OnInit {
     this.loadBookingHistory();
     this.closePopup();
   }
+
+  validateAmount() {
+    if (this.clearData.ratePerHr > 0) {
+      this.amountError = '';
+    }
+  }
+
 }

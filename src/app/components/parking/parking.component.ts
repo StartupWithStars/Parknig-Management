@@ -42,7 +42,7 @@ export class ParkingComponent implements OnInit {
 
   get laneGroups() {
     const lanes = [];
-    const chunkSize = 8; 
+    const chunkSize = 8;
 
     for (let i = 0; i < this.parkingSlots.length; i += chunkSize) {
       lanes.push({
@@ -152,6 +152,14 @@ export class ParkingComponent implements OnInit {
   }
 
   onConfirmClearSlot() {
+
+    if (this.clearData.ratePerHr <= 0) {
+      this.amountError = 'Enter valid amount';
+      return
+    }
+    this.amountError = '';
+
+
     if (!this.selectedBooking) return;
 
     const activeUserStr = localStorage.getItem('active_parking_user');
@@ -205,9 +213,13 @@ export class ParkingComponent implements OnInit {
   clearPopup() {
     this.isClearPopupOpen = false;
     this.selectedBooking = null;
+    this.amountError = '';
   }
 
+  amountError: string = ''
+
   async onGenerateToken(action: any) {
+
     if (!this.selectedSlot) return;
 
     const activeUserStr = localStorage.getItem('active_parking_user');
@@ -354,4 +366,10 @@ export class ParkingComponent implements OnInit {
     return this.parkingSlots ? this.parkingSlots.filter(s => s.status === 'available').length : 0;
   }
 
+  validateAmount() {
+    if (this.clearData.ratePerHr > 0) {
+      this.amountError = '';
+    }
+  }
 }
+
